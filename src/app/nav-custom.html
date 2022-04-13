@@ -1,0 +1,63 @@
+<main>
+<ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs">
+  <li *ngIf="typedArray[0] as results" [ngbNavItem]="1" [destroyOnHide]="false">
+    <a ngbNavLink>{{typedArray[0][0].Type}} ({{typedArray[0].length}})</a>
+    <ng-template ngbNavContent style="display: flex;">
+      <div *ngFor="let poster of (results | posterFilter:searchTerm); let i=index">
+      <div class="poster-info">
+        <img [src]="poster['Poster']" onerror="this.style='visibility: hidden;'" noImg />
+        <h2 (blur)="onBlur($event.target)" contenteditable="true" class="title">{{poster['Title']}}</h2>
+        <p class="poster-year">{{poster['Year'] | date }}</p>
+      </div>
+    </div>
+    </ng-template>
+  </li>
+  <li *ngIf="typedArray[1] as results" [ngbNavItem]="2" [destroyOnHide]="true">
+    <a ngbNavLink>{{typedArray[1][0].Type}} ({{typedArray[1].length}})</a>
+    <ng-template ngbNavContent>
+      <div *ngFor="let poster of (results | posterFilter:searchTerm); let i=index">
+        <div class="poster-info">
+          <img [src]="poster['Poster']" onerror="this.style='visibility: hidden;'" noImg />
+          <h2 (blur)="onBlur($event.target)" contenteditable="true" class="title">{{poster['Title']}}</h2>
+          <p class="poster-year">{{poster['Year'] | date }}</p>
+        </div>
+    </div>
+    </ng-template>
+  </li>
+  <li *ngIf="typedArray[2] as results" [ngbNavItem]="3" [destroyOnHide]="true">
+    <a ngbNavLink>{{typedArray[2][0].Type}} ({{typedArray[2].length}})</a>
+    <ng-template ngbNavContent let-active>
+      <div *ngFor="let poster of (results | posterFilter:searchTerm); let i=index">
+        <div class="poster-info">
+          <img [src]="poster['Poster']" onerror="this.style='visibility: hidden;'" noImg />
+          <h2 (blur)="onBlur($event.target)" contenteditable="true" class="title">{{poster['Title']}}</h2>
+          <p class="poster-year">{{poster['Year'] | date }}</p>
+        </div>
+    </div>
+    </ng-template>
+  </li>
+  <li>
+    <div class="form-container">
+      <form>
+        <div class="form-group">
+          <input
+            class="form-control mt-2"
+            type="search"
+            [(ngModel)]="searchTerm"
+            name="searchTerm"
+            placeholder="Search"
+            id="searchTerm"
+          />
+        </div>
+      </form>
+      <p></p>
+    </div>
+  </li>
+  <li>
+    <toggle-button class="toggle-btn" (changed)="checked=$event.target.checked;toggleClass()"></toggle-button>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2 posters"></div>
+
+</main>
